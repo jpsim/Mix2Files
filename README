@@ -1,0 +1,6 @@
+This is a pcm audio mixing demo for the iPhone, open up this xcode project
+in the simulator and run it to hear the results of two mixed audio tracks.
+Mixing two tracks before playing them is much better than using two
+AVAudioPlayer objects because mixing actually keeps two audio tracks in sync.
+The example sounds are a drum kit and a violin with lots of reverb.
+
