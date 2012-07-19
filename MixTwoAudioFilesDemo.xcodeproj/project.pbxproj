@@ -21,6 +21,7 @@
 		CDE99D330F7B3E9900550CCF /* PCMMixer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE99D320F7B3E9900550CCF /* PCMMixer.m */; };
 		CDE99D430F7B419A00550CCF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D420F7B419A00550CCF /* AVFoundation.framework */; };
 		CDE99D550F7B43F200550CCF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D540F7B43F200550CCF /* AudioToolbox.framework */; };
+		E86DB43215B8B25600ED2540 /* funk.caf in Resources */ = {isa = PBXBuildFile; fileRef = E86DB43115B8B25600ED2540 /* funk.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		CDE99D320F7B3E9900550CCF /* PCMMixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMMixer.m; sourceTree = "<group>"; };
 		CDE99D420F7B419A00550CCF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CDE99D540F7B43F200550CCF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E86DB43115B8B25600ED2540 /* funk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = funk.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E86DB43115B8B25600ED2540 /* funk.caf */,
 				CD73993D0F7D68E600850288 /* Drums.caf */,
 				CD73993B0F7D68D500850288 /* Violin.caf */,
 				CD7398C80F7D611400850288 /* ViolinTooLoud.caf */,
@@ -186,6 +189,7 @@
 				CD7398C90F7D611400850288 /* ViolinTooLoud.caf in Resources */,
 				CD73993C0F7D68D500850288 /* Violin.caf in Resources */,
 				CD73993E0F7D68E600850288 /* Drums.caf in Resources */,
+				E86DB43215B8B25600ED2540 /* funk.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

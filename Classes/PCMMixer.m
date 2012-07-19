@@ -24,13 +24,19 @@ BOOL mix_buffers(const int16_t *buffer1,
 		int32_t s1 = buffer1[i];
 		int32_t s2 = buffer2[i];
 		int32_t mixed = s1 + s2;
+    
+    if (mixed < -32768)
+      mixed = -32768;
+    else if (mixed > 32767)
+      mixed = 32767;
+    mixbuffer[i] = (int16_t) mixed;
 
-		if ((mixed < -32768) || (mixed > 32767)) {
-			clipping = TRUE;
-			break;
-		} else {
-			mixbuffer[i] = (int16_t) mixed;
-		}
+//		if ((mixed < -32768) || (mixed > 32767)) {
+//			clipping = TRUE;
+//			break;
+//		} else {
+//			mixbuffer[i] = (int16_t) mixed;
+//		}
 	}
 
 	return clipping;
