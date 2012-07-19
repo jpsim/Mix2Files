@@ -302,4 +302,37 @@ reterr:
 	return status;
 }
 
++ (OSStatus) mixFiles:(NSArray*)files atTimes:(NSArray*)times toMixfile:(NSString*)mixfile {
+//  __block OSStatus status;
+//  NSString *tmpDir = NSTemporaryDirectory();
+////  NSString *tmpFilename = @"Lesson_Mix.caf";
+////	NSString *tmpPath = [tmpDir stringByAppendingPathComponent:tmpFilename];
+//  [files enumerateObjectsUsingBlock:^(NSString *file, NSUInteger idx, BOOL *stop) {
+//    NSString *tmpPath = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",idx]];
+//    if (!idx) tmpPath = [[NSBundle mainBundle] pathForResource:@"Drums.caf" ofType:nil];
+//    NSString *tmpMix = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",idx+1]];
+//    if ([files count]==idx) tmpMix = mixfile;
+//    NSLog(@"idx: %d",idx);
+//    status = [self mix:tmpPath file2:file mixfile:tmpMix];
+//    if (status) *stop = YES;
+//  }];
+////  [self mix:[files objectAtIndex:0] file2:[files objectAtIndex:1] mixfile:tmpPath];
+////  [self mix:tmpPath file2:[files objectAtIndex:2] mixfile:mixfile];
+//  return status;
+  OSStatus status;
+  NSString *tmpDir = NSTemporaryDirectory();
+  for (int i=1; i<[files count]; i++) {
+    NSString *file1 = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",i-1]];
+    NSString *file2 = [files objectAtIndex:i];
+    if (i==1) file1 = [files objectAtIndex:0];
+    NSString *target = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",i]];
+    if (i+1==[files count]) {
+      target = mixfile;
+    }
+    NSLog(@"%d: %@\n%@\n%@",i,file1,file2,target);
+    [self mix:file1 file2:file2 mixfile:target];
+  }
+  return status;
+}
+
 @end

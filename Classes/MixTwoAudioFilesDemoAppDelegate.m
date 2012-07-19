@@ -24,27 +24,22 @@
     [window makeKeyAndVisible];
   
   NSString *resName1 = @"Drums.caf";
-  
-  // This softer violin track will mix properly
-  
 	NSString *resName2 = @"funk.caf";
-  
-  // This loud violin track will not mix properly because the audio would clip
-  
-  //	NSString *resName2 = @"ViolinTooLoud.caf";
+  NSString *resName3 = @"tk.caf";
   
 	NSString *resPath1 = [[NSBundle mainBundle] pathForResource:resName1 ofType:nil];
 	NSString *resPath2 = [[NSBundle mainBundle] pathForResource:resName2 ofType:nil];
+  NSString *resPath3 = [[NSBundle mainBundle] pathForResource:resName3 ofType:nil];
   
   //	NSString *tmpDir = NSTemporaryDirectory();
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *docDir = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-	NSString *tmpFilename = @"Lesson_Mix.caf";
+	NSString *tmpFilename = @"Mix.caf";
 	NSString *tmpPath = [docDir stringByAppendingPathComponent:tmpFilename];
   
 	OSStatus status;
   
-	status = [PCMMixer mix:resPath1 file2:resPath2 mixfile:tmpPath];
+	status = [PCMMixer mixFiles:[NSArray arrayWithObjects:resPath1,resPath2,resPath3, nil] atTimes:nil toMixfile:tmpPath];
   
 	if (status == OSSTATUS_MIX_WOULD_CLIP) {
 		[viewController.view setBackgroundColor:[UIColor redColor]];
