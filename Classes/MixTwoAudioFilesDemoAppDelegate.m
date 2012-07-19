@@ -17,19 +17,19 @@
 @synthesize viewController;
 @synthesize avAudio;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
-    // Override point for customization after app launch    
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+
+    // Override point for customization after app launch
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
-	
+
 	NSTimer *doAudioTimer = [NSTimer timerWithTimeInterval: 1.0
 													target: self
 												  selector: @selector(doAudioCallback:)
 												  userInfo: NULL
 												   repeats: FALSE];
 
-    [[NSRunLoop currentRunLoop] addTimer: doAudioTimer forMode: NSDefaultRunLoopMode];	
+    [[NSRunLoop currentRunLoop] addTimer: doAudioTimer forMode: NSDefaultRunLoopMode];
 }
 
 - (void) doAudioCallback: (NSTimer *)timer {
@@ -56,21 +56,21 @@
 
 	if (status == OSSTATUS_MIX_WOULD_CLIP) {
 		[viewController.view setBackgroundColor:[UIColor redColor]];
-	} else {	
+	} else {
 		[viewController.view setBackgroundColor:[UIColor greenColor]];
 
 		NSURL *url = [NSURL fileURLWithPath:tmpPath];
-		
+
 		NSData *urlData = [NSData dataWithContentsOfURL:url];
-		
+
 		NSLog(@"wrote mix file of size %d : %@", [urlData length], tmpPath);
-		
+
 		AVAudioPlayer *avAudioObj = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     [avAudioObj autorelease];
     self.avAudio = avAudioObj;
-		
+
 		[avAudioObj prepareToPlay];
-		[avAudioObj play];		
+		[avAudioObj play];
 	}
 }
 

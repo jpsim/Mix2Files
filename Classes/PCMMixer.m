@@ -36,13 +36,13 @@ BOOL mix_buffers(const int16_t *buffer1,
 	return clipping;
 }
 
-@implementation PCMMixer	
+@implementation PCMMixer
 
 + (void) _setDefaultAudioFormatFlags:(AudioStreamBasicDescription*)audioFormatPtr
 						 numChannels:(NSUInteger)numChannels
 {
 	bzero(audioFormatPtr, sizeof(AudioStreamBasicDescription));
-	
+
 	audioFormatPtr->mFormatID = kAudioFormatLinearPCM;
 	audioFormatPtr->mSampleRate = 44100.0;
 	audioFormatPtr->mChannelsPerFrame = numChannels;
@@ -51,7 +51,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 	audioFormatPtr->mBytesPerFrame = 2 * numChannels;
 	audioFormatPtr->mBitsPerChannel = 16;
 	audioFormatPtr->mFormatFlags = kAudioFormatFlagsNativeEndian |
-	kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;	
+	kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
 }
 
 + (OSStatus) mix:(NSString*)file1 file2:(NSString*)file2 mixfile:(NSString*)mixfile
@@ -70,17 +70,17 @@ BOOL mix_buffers(const int16_t *buffer1,
 	// Why is this constant missing under Mac OS X?
 # define kAudioFileReadPermission fsRdPerm
 #endif
-	
+
 #define BUFFER_SIZE 4096
 	char *buffer1 = NULL;
 	char *buffer2 = NULL;
-	char *mixbuffer = NULL;	
+	char *mixbuffer = NULL;
 
 	status = AudioFileOpenURL((CFURLRef)url1, kAudioFileReadPermission, 0, &inAudioFile1);
     if (status)
 	{
 		goto reterr;
-	}	
+	}
 
 	status = AudioFileOpenURL((CFURLRef)url2, kAudioFileReadPermission, 0, &inAudioFile2);
     if (status)
@@ -128,7 +128,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 	{
 		goto reterr;
 	}
-	
+
 	if ((inputDataFormat.mFormatID == kAudioFormatLinearPCM) &&
 		(inputDataFormat.mSampleRate == 44100.0) &&
 		(inputDataFormat.mChannelsPerFrame == 2) &&
@@ -210,10 +210,10 @@ BOOL mix_buffers(const int16_t *buffer1,
 		}
 
 		// if buffer was not filled, fill with zeros
-		
+
 		if (bytesRead < BUFFER_SIZE) {
 			bzero(buffer2 + bytesRead, (BUFFER_SIZE - bytesRead));
-		}		
+		}
 
 		packetNum2 += numPackets2;
 
@@ -226,7 +226,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 
 		int maxNumPackets;
 		if (numPackets1 > numPackets2) {
-			maxNumPackets = numPackets1; 
+			maxNumPackets = numPackets1;
 		} else {
 			maxNumPackets = numPackets2;
 		}
@@ -256,14 +256,14 @@ BOOL mix_buffers(const int16_t *buffer1,
 		if (status) {
 			goto reterr;
 		}
-		
+
 		if (packetsWritten != maxNumPackets) {
 			status = kAudioFileInvalidPacketOffsetError;
 			goto reterr;
 		}
 
 		mixpacketNum += packetsWritten;
-	}	
+	}
 
 reterr:
 	if (inAudioFile1 != NULL) {
