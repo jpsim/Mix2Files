@@ -19,6 +19,9 @@
 		CDE99D430F7B419A00550CCF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D420F7B419A00550CCF /* AVFoundation.framework */; };
 		CDE99D550F7B43F200550CCF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D540F7B43F200550CCF /* AudioToolbox.framework */; };
 		E88922A915B8F75C0065A3CA /* toms.caf in Resources */ = {isa = PBXBuildFile; fileRef = E88922A815B8F75C0065A3CA /* toms.caf */; };
+		E88922AC15B908450065A3CA /* tk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88922AA15B908450065A3CA /* tk.mp3 */; };
+		E88922AD15B908450065A3CA /* funk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88922AB15B908450065A3CA /* funk.mp3 */; };
+		E88922B415B908AA0065A3CA /* BJIConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E88922B315B908AA0065A3CA /* BJIConverter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,10 @@
 		CDE99D420F7B419A00550CCF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CDE99D540F7B43F200550CCF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E88922A815B8F75C0065A3CA /* toms.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = toms.caf; sourceTree = "<group>"; };
+		E88922AA15B908450065A3CA /* tk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tk.mp3; sourceTree = "<group>"; };
+		E88922AB15B908450065A3CA /* funk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = funk.mp3; sourceTree = "<group>"; };
+		E88922B215B908AA0065A3CA /* BJIConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJIConverter.h; sourceTree = "<group>"; };
+		E88922B315B908AA0065A3CA /* BJIConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJIConverter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,12 +68,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CDE99D310F7B3E9900550CCF /* PCMMixer.h */,
-				CDE99D320F7B3E9900550CCF /* PCMMixer.m */,
-				1D3623240D0F684500981E51 /* MixTwoAudioFilesDemoAppDelegate.h */,
-				1D3623250D0F684500981E51 /* MixTwoAudioFilesDemoAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* MixTwoAudioFilesDemoViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* MixTwoAudioFilesDemoViewController.m */,
+				E88922B515B908AD0065A3CA /* BJIConverter */,
+				E88922AE15B9085A0065A3CA /* PCMMixer */,
+				E88922AF15B908690065A3CA /* App Delegate */,
+				E88922B015B908720065A3CA /* MixTwoAudioFilesDemoViewController */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -103,7 +108,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E88922A815B8F75C0065A3CA /* toms.caf */,
+				E88922B115B908800065A3CA /* Audio */,
 				2899E5210DE3E06400AC0155 /* MixTwoAudioFilesDemoViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -121,6 +126,52 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E88922AE15B9085A0065A3CA /* PCMMixer */ = {
+			isa = PBXGroup;
+			children = (
+				CDE99D310F7B3E9900550CCF /* PCMMixer.h */,
+				CDE99D320F7B3E9900550CCF /* PCMMixer.m */,
+			);
+			name = PCMMixer;
+			sourceTree = "<group>";
+		};
+		E88922AF15B908690065A3CA /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* MixTwoAudioFilesDemoAppDelegate.h */,
+				1D3623250D0F684500981E51 /* MixTwoAudioFilesDemoAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		E88922B015B908720065A3CA /* MixTwoAudioFilesDemoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				28D7ACF60DDB3853001CB0EB /* MixTwoAudioFilesDemoViewController.h */,
+				28D7ACF70DDB3853001CB0EB /* MixTwoAudioFilesDemoViewController.m */,
+			);
+			name = MixTwoAudioFilesDemoViewController;
+			sourceTree = "<group>";
+		};
+		E88922B115B908800065A3CA /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				E88922A815B8F75C0065A3CA /* toms.caf */,
+				E88922AA15B908450065A3CA /* tk.mp3 */,
+				E88922AB15B908450065A3CA /* funk.mp3 */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		E88922B515B908AD0065A3CA /* BJIConverter */ = {
+			isa = PBXGroup;
+			children = (
+				E88922B215B908AA0065A3CA /* BJIConverter.h */,
+				E88922B315B908AA0065A3CA /* BJIConverter.m */,
+			);
+			name = BJIConverter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +229,8 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* MixTwoAudioFilesDemoViewController.xib in Resources */,
 				E88922A915B8F75C0065A3CA /* toms.caf in Resources */,
+				E88922AC15B908450065A3CA /* tk.mp3 in Resources */,
+				E88922AD15B908450065A3CA /* funk.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +245,7 @@
 				1D3623260D0F684500981E51 /* MixTwoAudioFilesDemoAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MixTwoAudioFilesDemoViewController.m in Sources */,
 				CDE99D330F7B3E9900550CCF /* PCMMixer.m in Sources */,
+				E88922B415B908AA0065A3CA /* BJIConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
