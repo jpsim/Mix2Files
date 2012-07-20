@@ -36,6 +36,7 @@
 	OSStatus status = [PCMMixer mixFiles:files atTimes:times toMixfile:mixURL];
   
   [self playMix:mixURL withStatus:status];
+  [BJIConverter convertFile:mixURL toFile:[mixURL stringByReplacingOccurrencesOfString:@".caf" withString:@".aiff"]];
 }
 
 - (void)dealloc {

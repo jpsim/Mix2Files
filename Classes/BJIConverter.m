@@ -91,8 +91,8 @@ void Convert(MyAudioConverterSettings *mySettings)
                                   &audioConverterSettings.inputFile),
               "ExtAudioFileOpenURL failed");
   CFRelease(inputFileURL);
-  MyAudioFormat fmt = MyAudioFormatCAF;
-  if (fmt == MyAudioFormatAIFF) {
+  
+  if ([fileOut rangeOfString:@".aiff"].location != NSNotFound) {
     // define the ouput format. AudioConverter requires that one of the data formats be LPCM
     audioConverterSettings.outputFormat.mSampleRate = 44100.0;
     audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
@@ -108,7 +108,7 @@ void Convert(MyAudioConverterSettings *mySettings)
     CheckResult (AudioFileCreateWithURL(outputFileURL, kAudioFileAIFFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
                  "AudioFileCreateWithURL failed");
     CFRelease(outputFileURL);
-  } else if (fmt == MyAudioFormatCAF) {
+  } else if ([fileOut rangeOfString:@".caf"].location != NSNotFound) {
     // define the ouput format. AudioConverter requires that one of the data formats be LPCM
     audioConverterSettings.outputFormat.mSampleRate = 44100.0;
     audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
@@ -122,22 +122,6 @@ void Convert(MyAudioConverterSettings *mySettings)
     // create output file
     CFURLRef outputFileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (__bridge CFStringRef)fileOut, kCFURLPOSIXPathStyle, false);
     CheckResult (AudioFileCreateWithURL(outputFileURL, kAudioFileCAFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
-                 "AudioFileCreateWithURL failed");
-    CFRelease(outputFileURL);
-  } else if (fmt == MyAudioFormatAAC) {
-    // define the ouput format. AudioConverter requires that one of the data formats be LPCM
-    audioConverterSettings.outputFormat.mSampleRate = 44100.0;
-    audioConverterSettings.outputFormat.mFormatID = kAudioFormatMPEG4AAC;
-    audioConverterSettings.outputFormat.mFormatFlags =  kMPEG4Object_AAC_Main;
-    audioConverterSettings.outputFormat.mBytesPerPacket = 0;
-    audioConverterSettings.outputFormat.mFramesPerPacket = 1024;
-    audioConverterSettings.outputFormat.mBytesPerFrame = 0;
-    audioConverterSettings.outputFormat.mChannelsPerFrame = 2;
-    audioConverterSettings.outputFormat.mBitsPerChannel = 0;
-    audioConverterSettings.outputFormat.mReserved = 0;
-    // create output file
-    CFURLRef outputFileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (__bridge CFStringRef)fileOut, kCFURLPOSIXPathStyle, false);
-    CheckResult (AudioFileCreateWithURL(outputFileURL, kAudioFileM4AType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
                  "AudioFileCreateWithURL failed");
     CFRelease(outputFileURL);
   }

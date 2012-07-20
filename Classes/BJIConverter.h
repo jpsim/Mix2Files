@@ -10,12 +10,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BJIConverter : NSObject
-typedef enum MyAudioFormat {
-  MyAudioFormatMP3,
-  MyAudioFormatAAC,
-  MyAudioFormatCAF,
-  MyAudioFormatAIFF
-} MyAudioFormat;
 
 typedef struct MyAudioConverterSettings
 {
