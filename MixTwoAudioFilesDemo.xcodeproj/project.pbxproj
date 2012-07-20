@@ -18,10 +18,10 @@
 		CDE99D330F7B3E9900550CCF /* PCMMixer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE99D320F7B3E9900550CCF /* PCMMixer.m */; };
 		CDE99D430F7B419A00550CCF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D420F7B419A00550CCF /* AVFoundation.framework */; };
 		CDE99D550F7B43F200550CCF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE99D540F7B43F200550CCF /* AudioToolbox.framework */; };
-		E88922A915B8F75C0065A3CA /* toms.caf in Resources */ = {isa = PBXBuildFile; fileRef = E88922A815B8F75C0065A3CA /* toms.caf */; };
 		E88922AC15B908450065A3CA /* tk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88922AA15B908450065A3CA /* tk.mp3 */; };
 		E88922AD15B908450065A3CA /* funk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88922AB15B908450065A3CA /* funk.mp3 */; };
 		E88922B415B908AA0065A3CA /* BJIConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E88922B315B908AA0065A3CA /* BJIConverter.m */; };
+		E88922B915B90A080065A3CA /* toms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88922B815B90A080065A3CA /* toms.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,11 +42,11 @@
 		CDE99D320F7B3E9900550CCF /* PCMMixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMMixer.m; sourceTree = "<group>"; };
 		CDE99D420F7B419A00550CCF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CDE99D540F7B43F200550CCF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		E88922A815B8F75C0065A3CA /* toms.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = toms.caf; sourceTree = "<group>"; };
 		E88922AA15B908450065A3CA /* tk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tk.mp3; sourceTree = "<group>"; };
 		E88922AB15B908450065A3CA /* funk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = funk.mp3; sourceTree = "<group>"; };
 		E88922B215B908AA0065A3CA /* BJIConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BJIConverter.h; sourceTree = "<group>"; };
 		E88922B315B908AA0065A3CA /* BJIConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BJIConverter.m; sourceTree = "<group>"; };
+		E88922B815B90A080065A3CA /* toms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = toms.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +158,7 @@
 		E88922B115B908800065A3CA /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				E88922A815B8F75C0065A3CA /* toms.caf */,
+				E88922B815B90A080065A3CA /* toms.mp3 */,
 				E88922AA15B908450065A3CA /* tk.mp3 */,
 				E88922AB15B908450065A3CA /* funk.mp3 */,
 			);
@@ -228,9 +228,9 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* MixTwoAudioFilesDemoViewController.xib in Resources */,
-				E88922A915B8F75C0065A3CA /* toms.caf in Resources */,
 				E88922AC15B908450065A3CA /* tk.mp3 in Resources */,
 				E88922AD15B908450065A3CA /* funk.mp3 in Resources */,
+				E88922B915B90A080065A3CA /* toms.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
