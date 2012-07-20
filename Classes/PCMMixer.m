@@ -60,7 +60,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 	kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
 }
 
-+ (OSStatus) mix:(NSString*)file1 file2:(NSString*)file2 mixfile:(NSString*)mixfile
++ (OSStatus) mix:(NSString*)file1 file2:(NSString*)file2 offset:(int)offset mixfile:(NSString*)mixfile
 {
 	OSStatus status, close_status;
 
@@ -77,7 +77,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 # define kAudioFileReadPermission fsRdPerm
 #endif
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 1024
 	char *buffer1 = NULL;
 	char *buffer2 = NULL;
 	char *mixbuffer = NULL;
@@ -201,7 +201,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 		}
 
 		packetNum1 += numPackets1;
-    if (mixpacketNum > 40*BUFFER_SIZE) {
+    if (mixpacketNum > offset*BUFFER_SIZE) {
       numPackets2 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
       status = AudioFileReadPackets(inAudioFile2,
                                     false,
@@ -215,7 +215,7 @@ BOOL mix_buffers(const int16_t *buffer1,
         goto reterr;
       }
     } else {
-//      bytesRead = 0;
+      bytesRead = 0;
     }
     
     // if buffer was not filled, fill with zeros
@@ -318,7 +318,7 @@ reterr:
       target = mixfile;
     }
     NSLog(@"%d: %@\n%@\n%@",i,file1,file2,target);
-    status = [self mix:file1 file2:file2 mixfile:target];
+    status = [self mix:file1 file2:file2 offset:i mixfile:target];
   }
   return status;
 }
