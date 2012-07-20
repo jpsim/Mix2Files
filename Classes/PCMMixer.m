@@ -24,13 +24,15 @@ BOOL mix_buffers(const int16_t *buffer1,
 		int32_t s1 = buffer1[i];
 		int32_t s2 = buffer2[i];
 		int32_t mixed = s1 + s2;
-    
+
+//    Brick wall limiter
     if (mixed < -32768)
       mixed = -32768;
     else if (mixed > 32767)
       mixed = 32767;
     mixbuffer[i] = (int16_t) mixed;
 
+//    Clipping detection
 //		if ((mixed < -32768) || (mixed > 32767)) {
 //			clipping = TRUE;
 //			break;
@@ -173,18 +175,18 @@ BOOL mix_buffers(const int16_t *buffer1,
 	SInt64 packetNum2 = 0;
 	SInt64 mixpacketNum = 0;
 
-	UInt32 numPackets1 = 0;
-	UInt32 numPackets2 = 0;
-
 	while (TRUE) {
 		// Read a chunk of input
 
-		UInt32 bytesRead;
+		UInt32 bytesRead1 = 0;
+    UInt32 bytesRead2 = 0;
+    UInt32 numPackets1 = 0;
+    UInt32 numPackets2 = 0;
 
 		numPackets1 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
 		status = AudioFileReadPackets(inAudioFile1,
 									  false,
-									  &bytesRead,
+									  &bytesRead1,
 									  NULL,
 									  packetNum1,
 									  &numPackets1,
@@ -196,8 +198,8 @@ BOOL mix_buffers(const int16_t *buffer1,
 
 		// if buffer was not filled, fill with zeros
 
-		if (bytesRead < BUFFER_SIZE) {
-			bzero(buffer1 + bytesRead, (BUFFER_SIZE - bytesRead));
+		if (bytesRead1 < BUFFER_SIZE) {
+			bzero(buffer1 + bytesRead1, (BUFFER_SIZE - bytesRead1));
 		}
 
 		packetNum1 += numPackets1;
@@ -205,7 +207,7 @@ BOOL mix_buffers(const int16_t *buffer1,
       numPackets2 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
       status = AudioFileReadPackets(inAudioFile2,
                                     false,
-                                    &bytesRead,
+                                    &bytesRead2,
                                     NULL,
                                     packetNum2,
                                     &numPackets2,
@@ -215,13 +217,13 @@ BOOL mix_buffers(const int16_t *buffer1,
         goto reterr;
       }
     } else {
-      bytesRead = 0;
+      bytesRead2 = 0;
     }
     
     // if buffer was not filled, fill with zeros
     
-    if (bytesRead < BUFFER_SIZE) {
-      bzero(buffer2 + bytesRead, (BUFFER_SIZE - bytesRead));
+    if (bytesRead2 < BUFFER_SIZE) {
+      bzero(buffer2 + bytesRead2, (BUFFER_SIZE - bytesRead2));
     }
     
     packetNum2 += numPackets2;
@@ -236,7 +238,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 		if (numPackets1 > numPackets2) {
 			maxNumPackets = numPackets1;
 		} else if (numPackets1 == 0 && numPackets2 == 0) {
-      maxNumPackets = BUFFER_SIZE;
+      maxNumPackets = 1;
     } else {
 			maxNumPackets = numPackets2;
 		}
@@ -317,8 +319,7 @@ reterr:
     if (i+1==[files count]) {
       target = mixfile;
     }
-    NSLog(@"%d: %@\n%@\n%@",i,file1,file2,target);
-    status = [self mix:file1 file2:file2 offset:i mixfile:target];
+    status = [self mix:file1 file2:file2 offset:[(NSNumber*)[times objectAtIndex:i] intValue]*14 mixfile:target];
   }
   return status;
 }

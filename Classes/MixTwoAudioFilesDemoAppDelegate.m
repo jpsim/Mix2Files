@@ -23,11 +23,11 @@
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
   
-  NSString *resName1 = @"funk.caf";
-  NSString *resName2 = @"tk.caf";
+  NSString *resName1 = @"toms.caf";
+//  NSString *resName2 = @"tk.caf";
   
 	NSString *resPath1 = [[NSBundle mainBundle] pathForResource:resName1 ofType:nil];
-  NSString *resPath2 = [[NSBundle mainBundle] pathForResource:resName2 ofType:nil];
+//  NSString *resPath2 = [[NSBundle mainBundle] pathForResource:resName2 ofType:nil];
   
   //	NSString *tmpDir = NSTemporaryDirectory();
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -37,7 +37,7 @@
   
 	OSStatus status;
   
-	status = [PCMMixer mixFiles:[NSArray arrayWithObjects:resPath1,resPath2,resPath1,resPath2,resPath1,resPath2, nil] atTimes:nil toMixfile:tmpPath];
+	status = [PCMMixer mixFiles:[NSArray arrayWithObjects:resPath1,resPath1,resPath1,resPath1, nil] atTimes:[NSArray arrayWithObjects:[NSNumber numberWithInt:5],[NSNumber numberWithInt:10],[NSNumber numberWithInt:15],[NSNumber numberWithInt:20], nil] toMixfile:tmpPath];
   
 	if (status == OSSTATUS_MIX_WOULD_CLIP) {
 		[viewController.view setBackgroundColor:[UIColor redColor]];
