@@ -37,7 +37,7 @@
   
 	OSStatus status;
   
-	status = [PCMMixer mixFiles:[NSArray arrayWithObjects:resPath1,resPath1,resPath1,resPath1, nil] atTimes:[NSArray arrayWithObjects:[NSNumber numberWithInt:5],[NSNumber numberWithInt:10],[NSNumber numberWithInt:15],[NSNumber numberWithInt:20], nil] toMixfile:tmpPath];
+	status = [PCMMixer mixFiles:[NSArray arrayWithObjects:resPath1,resPath1,resPath1,resPath1, nil] atTimes:[NSArray arrayWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:1],[NSNumber numberWithInt:2],[NSNumber numberWithInt:3], nil] toMixfile:tmpPath];
   
 	if (status == OSSTATUS_MIX_WOULD_CLIP) {
 		[viewController.view setBackgroundColor:[UIColor redColor]];

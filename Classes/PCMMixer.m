@@ -319,7 +319,7 @@ reterr:
     if (i+1==[files count]) {
       target = mixfile;
     }
-    status = [self mix:file1 file2:file2 offset:[(NSNumber*)[times objectAtIndex:i] intValue]*14 mixfile:target];
+    status = [self mix:file1 file2:file2 offset:[(NSNumber*)[times objectAtIndex:i] intValue]*5 mixfile:target];
   }
   return status;
 }
