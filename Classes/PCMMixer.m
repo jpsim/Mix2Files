@@ -173,8 +173,8 @@ BOOL mix_buffers(const int16_t *buffer1,
 	SInt64 packetNum2 = 0;
 	SInt64 mixpacketNum = 0;
 
-	UInt32 numPackets1;
-	UInt32 numPackets2;
+	UInt32 numPackets1 = 0;
+	UInt32 numPackets2 = 0;
 
 	while (TRUE) {
 		// Read a chunk of input
@@ -201,43 +201,47 @@ BOOL mix_buffers(const int16_t *buffer1,
 		}
 
 		packetNum1 += numPackets1;
-
-		numPackets2 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
-		status = AudioFileReadPackets(inAudioFile2,
-									  false,
-									  &bytesRead,
-									  NULL,
-									  packetNum2,
-									  &numPackets2,
-									  buffer2);
-
-		if (status) {
-			goto reterr;
-		}
-
-		// if buffer was not filled, fill with zeros
-
-		if (bytesRead < BUFFER_SIZE) {
-			bzero(buffer2 + bytesRead, (BUFFER_SIZE - bytesRead));
-		}
-
-		packetNum2 += numPackets2;
-
-		// If no frames were returned, conversion is finished
-
-		if (numPackets1 == 0 && numPackets2 == 0)
-			break;
+    if (mixpacketNum > 40*BUFFER_SIZE) {
+      numPackets2 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
+      status = AudioFileReadPackets(inAudioFile2,
+                                    false,
+                                    &bytesRead,
+                                    NULL,
+                                    packetNum2,
+                                    &numPackets2,
+                                    buffer2);
+      
+      if (status) {
+        goto reterr;
+      }
+    } else {
+//      bytesRead = 0;
+    }
+    
+    // if buffer was not filled, fill with zeros
+    
+    if (bytesRead < BUFFER_SIZE) {
+      bzero(buffer2 + bytesRead, (BUFFER_SIZE - bytesRead));
+    }
+    
+    packetNum2 += numPackets2;
+    
+    // If no frames were returned, conversion is finished
+    if (numPackets1 == 0 && numPackets2 == 0 && packetNum2 > 0)
+      break;
 
 		// Write pcm data to output file
 
 		int maxNumPackets;
 		if (numPackets1 > numPackets2) {
 			maxNumPackets = numPackets1;
-		} else {
+		} else if (numPackets1 == 0 && numPackets2 == 0) {
+      maxNumPackets = BUFFER_SIZE;
+    } else {
 			maxNumPackets = numPackets2;
 		}
 
-		int numSamples = (numPackets1 * inputDataFormat.mBytesPerPacket) / sizeof(int16_t);
+		int numSamples = (maxNumPackets * inputDataFormat.mBytesPerPacket) / sizeof(int16_t);
 
 		BOOL clipping = mix_buffers((const int16_t *)buffer1, (const int16_t *)buffer2,
 									(int16_t *) mixbuffer, numSamples);
@@ -303,22 +307,6 @@ reterr:
 }
 
 + (OSStatus) mixFiles:(NSArray*)files atTimes:(NSArray*)times toMixfile:(NSString*)mixfile {
-//  __block OSStatus status;
-//  NSString *tmpDir = NSTemporaryDirectory();
-////  NSString *tmpFilename = @"Lesson_Mix.caf";
-////	NSString *tmpPath = [tmpDir stringByAppendingPathComponent:tmpFilename];
-//  [files enumerateObjectsUsingBlock:^(NSString *file, NSUInteger idx, BOOL *stop) {
-//    NSString *tmpPath = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",idx]];
-//    if (!idx) tmpPath = [[NSBundle mainBundle] pathForResource:@"Drums.caf" ofType:nil];
-//    NSString *tmpMix = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.caf",idx+1]];
-//    if ([files count]==idx) tmpMix = mixfile;
-//    NSLog(@"idx: %d",idx);
-//    status = [self mix:tmpPath file2:file mixfile:tmpMix];
-//    if (status) *stop = YES;
-//  }];
-////  [self mix:[files objectAtIndex:0] file2:[files objectAtIndex:1] mixfile:tmpPath];
-////  [self mix:tmpPath file2:[files objectAtIndex:2] mixfile:mixfile];
-//  return status;
   OSStatus status;
   NSString *tmpDir = NSTemporaryDirectory();
   for (int i=1; i<[files count]; i++) {
@@ -330,7 +318,7 @@ reterr:
       target = mixfile;
     }
     NSLog(@"%d: %@\n%@\n%@",i,file1,file2,target);
-    [self mix:file1 file2:file2 mixfile:target];
+    status = [self mix:file1 file2:file2 mixfile:target];
   }
   return status;
 }
